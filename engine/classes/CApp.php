@@ -251,7 +251,7 @@ class CApp {
             }
         }
 
-        return "";
+        return NULL;
     }
 
     /**
