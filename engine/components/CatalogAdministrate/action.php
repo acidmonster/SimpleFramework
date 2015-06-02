@@ -133,17 +133,16 @@
      */
     function checkGroupName($groupname) {
         if (isset($groupname)) {
-            $group = СCatalogGroup::getGroupByName($groupname, FALSE);
+            $group = CCatalogGroup::getGroupByName($groupname, FALSE);
 
             if (!isset($group)) {
                 return true;
             } else {
                 return false;
             }
-                
+
         } else {
             CLogger::writeLog("action.php: Не удалось получить наименование группы.");
             die();
         }
     }
-    

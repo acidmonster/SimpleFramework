@@ -1,23 +1,22 @@
 <?php
 
-include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/engine/classes/CBaseList.php';
 include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/engine/classes/CConnection.php';
 include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/engine/classes/CLogger.php';
-include_once 'CCatalog.php';
+include_once 'CCatalogGroup.php';
 
-class CCatalogGroup {
+class CCatalog {
 
     const GROUP_TABLE_NAME = "sf_catalogs_groups";
     const СATALOG_TABLE_NAME = "sf_catalogs";
 
     /**
-     * ID группы
+     * ID каталога
      * @var string
      */
     protected $id;
 
     /**
-     * Наименование группы
+     * Наименование каталога
      * @var type
      */
     protected $name;
@@ -35,41 +34,25 @@ class CCatalogGroup {
     protected $state;
 
     /**
-     *
-     * @var CBaseList
+     * ИД одительской группы
+     * @var string
      */
-    protected $catalogs;
-
+    protected $group_id;
 
     /**
-     *
+     * Констурктор
      * @param string $id
      * @param string $name
      * @param string $state
+     * @param CCatalogGroup $group_id
      * @param string $comment
      */
-    public function __construct($id, $name, $state, $comment = "") {
+    public function __construct($id, $name, $state, $group_id, $comment = "") {
         $this->id = $id;
         $this->name = $name;
         $this->state = $state;
+        $this->group_id = $group_id;
         $this->comment = $comment;
-
-//        // Получить каталоги группы
-//        $con = new CConnection();
-//        $query = "select id from " . self::СATALOG_TABLE_NAME . " where group_id='" . $id . "'";
-//        $result = $con->query($query);
-//        unset($con);
-//
-//        if ($result->num_rows > 0) {
-//            while($row = $result->fetch_object()) {
-//                $catalog = CCatalog::getObjectByID($row->id);
-//
-//                if (isset($catalog)) {
-//                    $this->catalogs->add($catalog);
-//                }
-//            }
-//
-//        }
     }
 
     /**
@@ -95,14 +78,25 @@ class CCatalogGroup {
     }
 
     /**
-     * Получает группу каталога по ИД
+     * Поулчает родительскую группу
+     * @return CCatalogGroup
+     */
+    public function getParent() {
+        // Получить родительскую группу
+        $parent = CCatalogGroup::getGroupByID($this->group_id);
+
+        return $parent;
+    }
+
+    /**
+     * Получает каталог по ИД
      * @param string $id
      * @param boolean $only_active
-     * @return \СCatalogGroup
+     * @return СCatalog
      */
-    public static function getGroupByID($id, $only_active = TRUE) {
+    public static function getObjectByID($id, $only_active = TRUE) {
         $con = new CConnection();
-        $query = "select id, name, comment, state from " . self::GROUP_TABLE_NAME . " where id='" . $id . "'";
+        $query = "select id, name, comment, state, group_id from " . self::СATALOG_TABLE_NAME . " where id='" . $id . "'";
 
         if ($only_active) {
             $query .= " and state='E'";
@@ -113,7 +107,7 @@ class CCatalogGroup {
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_object();
-            $object = new CCatalogGroup($row->id, $row->name, $row->state, $row->comment);
+            $object = new CCatalog($row->id, $row->name, $row->state, $row->group_id, $row->comment);
 
             return $object;
         } else {
@@ -129,10 +123,9 @@ class CCatalogGroup {
      * @param string $only_active
      * @return \СCatalogGroup
      */
-    public static function getGroupByName($name, $only_active = TRUE) {
-
+    public static function getObjectByName($name, $only_active = TRUE) {
         $con = new CConnection();
-        $query = "select id, name, comment, state from " . self::GROUP_TABLE_NAME . " where LTRIM(name)=LTRIM('" . $name . "')";
+        $query = "select id, name, comment, state, group_id from " . self::СATALOG_TABLE_NAME . " where LTRIM(name)=LTRIM('" . $name . "')";
 
         if ($only_active) {
             $query .= " and state='E'";
@@ -144,15 +137,16 @@ class CCatalogGroup {
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_object();
-            $object = new CCatalogGroup($row->id, $row->name, $row->state, $row->comment);
+
+            // Получить родительскую группу
+            $parent = CCatalogGroup::getGroupByID($row->group_id);
+            $object = new CCatalog($row->id, $row->name, $row->state, $parent, $row->comment);
+
             return $object;
         } else {
-            CLogger::writeLog("Группа с именем '". $name . "' не найдена.");
+            CLogger::writeLog("Каталог с именем '". $name . "' не найден.");
             return NULL;
         }
-
-        $result->close();
     }
-    
 
 }

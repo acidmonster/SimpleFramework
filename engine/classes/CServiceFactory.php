@@ -32,6 +32,7 @@ class CServiceFactory extends CBaseFactory {
                     . "comment, "
                     . "state,"
                     . "email from sf_logins where id = '" . $id . "' limit 1");
+            unset($conn);
 
             if ($result->num_rows) {
                 $result_data = $result->fetch_object();
@@ -51,13 +52,13 @@ class CServiceFactory extends CBaseFactory {
                 $user->setBirthdate($result_data->birthdate);               // Дата рождения
 
                 // Free memory from result data
-                $result->free_result();
+                $result->close();
 
                 // Return user type
                 return $user;
             } else {
                 // Free memory from result data
-                $result->free_result();
+                $result->close();
 
                 return "";
             }
@@ -100,10 +101,11 @@ class CServiceFactory extends CBaseFactory {
                         // Free memory
                         $query_data = $query_result->fetch_object();
                         $user_id    = $query_data->id;
-                        $query_result->free_result();
+                        $query_result->close();
 
                         // Update user last login date
                         $conn->query("update sf_logins set last_sign_date = NOW() where id = " . $user_id);
+                        unset($conn);
 
                         // Get information about user
                         $user = CServiceFactory::getUserByID($user_id);
@@ -164,7 +166,9 @@ class CServiceFactory extends CBaseFactory {
                         $query_result->free_result();
 
                         // Update user last login date
-                        $conn->query("update sf_logins set last_sign_date = NOW() where id = " . $user_id);
+                        $conn->query("update sf_logins set last_sign_date = NOW() where id = '" . $user_id . "'");
+
+                        unset($conn);
 
                         // Get information about user
                         $user = CServiceFactory::getUserByID($user_id);
@@ -208,6 +212,8 @@ class CServiceFactory extends CBaseFactory {
                 // Выполнить переход на страницу авторизации
                 header($location);
             }
+
+
         } else
         {
             CLogger::writeLog("CServiceFactory::authorizeByID(): Не указан ИД пользователя.");

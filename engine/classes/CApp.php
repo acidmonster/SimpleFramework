@@ -9,7 +9,7 @@ $included_classes = array(
 );
 
 foreach ($included_classes as $class_name) {
-    include_once $class_name.'.php';
+    include_once $class_name . '.php';
 }
 
 /**
@@ -36,7 +36,7 @@ class CApp {
     /**
      * Конфигурационный файл приложения
      */
-    const APP_CONFIG_FILE_PATH   = '/engine/config/appSettings.xml';
+    const APP_CONFIG_FILE_PATH = '/engine/config/appSettings.xml';
 
     /**
      * Текущая страница
@@ -88,13 +88,16 @@ class CApp {
      */
     const APP_COMPONENTS_PATH = '/engine/components/';
 
+    /**
+     * Наименование сессионной переменной подключения к БД
+     */
+    const APP_CONNECTION = 'app_connection';
 
     //==========================================================
     /**
      * Метод возвращает корневую папку сайта
      * @return string
      */
-
     public static function GetRootFolder() {
         $root_path = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
         /* @var $root_path string возвращает корневую папку сайта */
@@ -106,7 +109,7 @@ class CApp {
      * @return string
      */
     public static function getFullCurrentPath() {
-        $full_path = dirname(CApp::GetRootFolder() . "" .CAPP::getCurrentPage()) . "/";
+        $full_path = dirname(CApp::GetRootFolder() . "" . CAPP::getCurrentPage()) . "/";
         return $full_path;
     }
 
@@ -133,8 +136,7 @@ class CApp {
     public static function checkAuthorize() {
         if ($_SESSION[self::APP_AUTHORIZE] == "YES") {
             return true;
-        } else
-        {
+        } else {
             return false;
         }
     }
@@ -180,7 +182,6 @@ class CApp {
 
         $_SESSION[self::APP_PAGES_CURRENT_PAGE] = $page;
     }
-
 
     /**
      * Метод возвращает уникальный идентификатор
@@ -262,16 +263,16 @@ class CApp {
     public static function loadTemplateByName($template_name, $page_data) {
         if (isset($template_name)) {
             // Получить путь к файлу шаблона
-            $template_path = CApp::APP_TEMPLATES_PATH.$template_name.'/template.php';
+            $template_path = CApp::APP_TEMPLATES_PATH . $template_name . '/template.php';
 
             // Проверить наличие файла
-            if (!file_exists(CApp::GetRootFolder()."".$template_path)) {
-                CLogger::writeLog('CApp->getTemplateByName: Не найден шаблон с наименованием "'.$template_name.'"');
+            if (!file_exists(CApp::GetRootFolder() . "" . $template_path)) {
+                CLogger::writeLog('CApp->getTemplateByName: Не найден шаблон с наименованием "' . $template_name . '"');
                 die();
             }
 
             // Загрузить шаблон
-            include CApp::GetRootFolder()."".$template_path;
+            include CApp::GetRootFolder() . "" . $template_path;
         } else {
             CLogger::writeLog("CApp->getTemplateByName: не передано имя шаблона.");
             die();
@@ -285,22 +286,45 @@ class CApp {
      */
     public static function loadComponent($component_name) {
         if (isset($component_name)) {
-            $component_full_path = CApp::GetRootFolder()."".CApp::APP_COMPONENTS_PATH."".$component_name."/component.php";
+            $component_full_path = CApp::GetRootFolder() . "" . CApp::APP_COMPONENTS_PATH . "" . $component_name . "/component.php";
             // Попытаться найти компонент с переданным имененем.
             if (!file_exists($component_full_path)) {
-                CLogger::writeLog("CApp->loadComponent: Компонент с наименованием '".$component_name."' не найден.");
+                CLogger::writeLog("CApp->loadComponent: Компонент с наименованием '" . $component_name . "' не найден.");
                 die();
             } else {
                 include_once $component_full_path;
-                $class_name = "C".$component_name;
-                $component = new $class_name();
+                $class_name = "C" . $component_name;
+                $component  = new $class_name();
                 return $component->render();
             }
-
         } else {
             CLogger::writeLog("CApp->loadComponent: не передано наименование компонента.");
             die();
         }
+    }
+
+    protected static function connectToDB() {
+        if (!isset($_SESSION[self::APP_CONNECTION])) {
+            $con = new CConnection();
+            $_SESSION[self::APP_CONNECTION] = $con;
+        }
+    }
+
+    protected static function reconnectToDB() {
+        $con = new CConnection();
+        $_SESSION[self::APP_CONNECTION] = $con;
+    }
+
+    protected static function disconnectFromDB() {
+        unset($_SESSION[self::APP_CONNECTION]);
+    }
+
+    public static function getConnection() {
+        if (!isset($_SESSION[self::APP_CONNECTION])) {
+            self::connectToDB();
+        }
+
+        return $_SESSION[self::APP_CONNECTION];
     }
 
     public static function initialize() {
@@ -321,8 +345,12 @@ class CApp {
         // Проверить наличие Cookie
         $cookie_user_id = filter_input(INPUT_COOKIE, 'SF_USER_ID', FILTER_SANITIZE_STRING);
 
-        if($cookie_user_id != '') {
+        if ($cookie_user_id != '') {
             CServiceFactory::authorizeByID($cookie_user_id);
         }
+
+        // Инициализировать подключение к БД
+//        self::connectToDB();
     }
+
 }

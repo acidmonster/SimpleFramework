@@ -65,8 +65,9 @@ class CConnection {
                      */
                     if ($mysqli_conn->connect_errno) {
                         $this->has_error = TRUE;
-                        CLogger::writeLog('CConnection->openConnection(): Failed to setup connection for user "' . $this->user . '"' . mysqli_connect_error());
+                        CLogger::writeLog('CConnection->openConnection(): Failed to setup connection for user "' . $this->user . '" ' . mysqli_connect_error());
                     } else {
+                        CLogger::writeLog('CConnection->openConnection(): Connected');
                         $this->mysqli = $mysqli_conn;
                         $this->opened = TRUE;
                     }
@@ -81,6 +82,7 @@ class CConnection {
     protected function closeConention() {
         if ($this->opened) {
             $this->mysqli->close();
+            CLogger::writeLog('CConnection->openConnection(): Disconnected');
         }
     }
 
@@ -95,13 +97,20 @@ class CConnection {
          *  Check query text
          */
         if (isset($query_text)) {
+
+            CLogger::writeLog('CConnection->query(): '. $query_text);
             // Execute query
             $this->mysqli->query("SET NAMES 'utf8'");
             $this->mysqli->query("SET CHARACTER SET 'utf8'");
             $this->mysqli->query("SET SESSION collation_connection = 'utf8_general_ci'");
-            $mysqli_result = $this->mysqli->query($query_text);
 
-            return $mysqli_result;
+            if ($mysqli_result = $this->mysqli->query($query_text)) {
+                CLogger::writeLog('CConnection->query(): Выполнен успешно.');
+                return $mysqli_result;
+            } else {
+                CLogger::writeLog('CConnection->query(): Ошибка при выполнении запроса '.$this->mysqli->error);
+            }
+
         } else {
             CLogger::writeLog('CConnection->query(): Query text must be define.');
             return NULL;

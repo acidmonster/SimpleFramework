@@ -6,6 +6,8 @@
  * ===========================================================================
  */
 
+include_once 'classes/CCatalogGroupList.php';
+
 class CCatalogAdministrate {
 
     const SCRIPT_FILE_NAME = "script.js";
@@ -22,7 +24,7 @@ class CCatalogAdministrate {
     }
 
     public function __destruct() {
-        
+
     }
 
     /**
@@ -77,25 +79,36 @@ class CCatalogAdministrate {
                     </div>';
 
         // Получить группы из базы данных
-        $con = new CConnection();
-        $result = $con->query("select id, name from " . self::GROUP_TABLE_NAME . " where state = 'E' order by name");
+        $group_list = new CCatalogGroupList();
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_object()) {
-                $html .= '<div class="sf-catalog-group-item"><input type="hidden" value="' . $row->id . '" class="sf-catalog-group-item-id"><div class="sf-image-button-icon add-catalog-group"></div><div class="sf-catalog-group-title">' . $row->name . '</div></div>';
+        for ($i = 1; $i < $group_list->getItemsCount(); $i++) {
+            $group =  $group_list->items($i);
 
-                // Получить каталоги грппы
-                $catalog_res = $con->query("select id, name from " . self::CATALOG_TABLE_NAME . " where state = 'E' and group_id='" . $row->id . "' order by name");
-
-                if ($catalog_res->num_rows > 0) {
-                    while ($catalog_row = $catalog_res->fetch_object()) {
-                        $html .= '<div class="sf-catalog-item"><input type="hidden" value="' . $catalog_row->id . '" class="sf-catalog-item-id"><div class="sf-image-button-icon add-catalog-item"></div><div class="sf-catalog-title">' . $catalog_row->name . '</div></div>';
-                    }
-                }
-            }
-        } else {
-            $html .= '<div class="sf-catalog-group-not-found"><p><b>Пока нет ни одной группы.</b></p><p></p>Для добавления новой группы каталогов нажмите кнопку "Добавить группу".</div>';
+            $html .= '<div class="sf-catalog-group-item"><input type="hidden" value="' . $group->getId() . '" class="sf-catalog-group-item-id"><div class="sf-image-button-icon add-catalog-group"></div><div class="sf-catalog-group-title">' . $group->getName() . '</div></div>';
         }
+
+//        echo $group_list->getItemsCount();
+
+        //$con = new CConnection();
+        //$result = $con->query("select id, name from " . self::GROUP_TABLE_NAME . " where state = 'E' order by name");
+        //unset($con);
+
+//        if ($result->num_rows > 0) {
+//            while ($row = $result->fetch_object()) {
+//                $html .= '<div class="sf-catalog-group-item"><input type="hidden" value="' . $row->id . '" class="sf-catalog-group-item-id"><div class="sf-image-button-icon add-catalog-group"></div><div class="sf-catalog-group-title">' . $row->name . '</div></div>';
+//
+//                // Получить каталоги группы
+//                $catalog_res = $con->query("select id, name from " . self::CATALOG_TABLE_NAME . " where state = 'E' and group_id='" . $row->id . "' order by name");
+//
+//                if ($catalog_res->num_rows > 0) {
+//                    while ($catalog_row = $catalog_res->fetch_object()) {
+//                        $html .= '<div class="sf-catalog-item"><input type="hidden" value="' . $catalog_row->id . '" class="sf-catalog-item-id"><div class="sf-image-button-icon add-catalog-item"></div><div class="sf-catalog-title">' . $catalog_row->name . '</div></div>';
+//                    }
+//                }
+//            }
+//        } else {
+//            $html .= '<div class="sf-catalog-group-not-found"><p><b>Пока нет ни одной группы.</b></p><p></p>Для добавления новой группы каталогов нажмите кнопку "Добавить группу".</div>';
+//        }
 
         // Карточка группы
         $group_form = '<form id="SFGroupForm" action="" method="post">
@@ -156,12 +169,12 @@ class CCatalogAdministrate {
 
     public function renderCatalog($id) {
         $html = "";
-        
+
         if (!isset($id)) {
             die();
         } else {
             // Получить наименование группы
-            
+
             // Сформировать панель навигации
             $nav = '<div class="sf-catalog-navigation">'
                         . '<div class="sf-button" id="SFCatalogNavRoot">'
@@ -171,11 +184,12 @@ class CCatalogAdministrate {
                         .   '<a href="#"></a>'
                         . '</div>'
                     . '</div>';
-            
+
             $html .= $nav;
             // Получить содержимое каталога из базы данных
             $con = new CConnection();
             $result = $con->query("select id, name from " . self::CATALOG_ITEM_TABLE_NAME . " where state = 'E' and catalog_id='" . $id . "' order by name");
+            unset($con);
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_object()) {
@@ -185,7 +199,7 @@ class CCatalogAdministrate {
                 $html .= '<div class="sf-catalog-group-not-found"><p><b>Пока нет ни одной группы.</b></p><p></p>Для добавления новой группы каталогов нажмите кнопку "Добавить группу".</div>';
             }
         }
-        
+
         return $html;
     }
 
