@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?php echo $page_data->getTitle(); ?></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/css/worktable.css" type="text/css">
+        <link rel="stylesheet" href="/css/jquery-ui.css" type="text/css">
+        <script src="/scripts/jquery-2.1.1.min.js"></script>
+        <script src="/scripts/jquery-ui-1.11.2.custom/jquery-ui.js"></script>
+        <script src="/scripts/jquery-ui-1.11.2.custom/datepicker-ru.js"></script>
+        <script src="/scripts/general.js"></script>
+    </head>
+    <body>
+        <div class="main-layer">
+            <div class="wrapper">
+                <div class="header-layer">
+                    <div class="header-logo">
+                    </div>
+                    <div class="header-label">
+                    </div>
+                    <div class="menu-layer" >
+                        <div class="menu-item menu-exit-icon" id="pmExitButton" title="Выход" onmousedown="pm_onExitButtonClick();">
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-user-info">Антон Калашников</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-layer">
+                    <div class="modules-layer">
+                        <?php echo $page_data->getExtMenu() ?>
+                    </div>
+                    <div class="subsystems-layer">
+                        <?php echo $page_data->getSubMenu() ?>
+                    </div>
+                    <div class="form-layer">
+                        <?php echo $page_data->getForm() ?>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-layer">
+                <div class="copy-layer">&copy; Калашников Антон, 2014</div>
+            </div>
+        </div>
+    </body>
+</html>

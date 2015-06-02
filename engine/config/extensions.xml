@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extensions>
+    <extension name="desktop" 
+               title="Рабочий стол" 
+               icon="/images/toolbars/ext_desktop.png"
+               state="disabled" >
+        <subsystems>
+            <subsystem name="messages" 
+                       title="Сообщения" 
+                       icon="/images/toolbars/ext_messages.png" />
+            <subsystem name="settings" 
+                       title="Настройки" 
+                       icon="/images/toolbars/ext_settings.png" />
+        </subsystems>
+    </extension>
+    <extension name="projects" 
+               title="Проекты" 
+               icon="/images/toolbars/ext_projects.png" 
+               state="enabled" >
+        <subsystems>
+            <subsystem name="my_projects" 
+                        title="Мои проекты" 
+                        icon="/images/extensions/ext_my_projects.png" />
+            <subsystem name="new_project" 
+                        title="Создать новый проект"  
+                        icon="/images/extensions/ext_new_project.png" />
+            <subsystem name="env_in_projects" 
+                        title="Проекты, в которых учавствую я" 
+                        icon="/images/extensions/ext_envolved_in_projects.png" />
+            <subsystem name="search_project" 
+                        title="Найти проект"  
+                        icon="/images/extensions/ext_search_project.png" />
+        </subsystems>
+    </extension>
+</extensions>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+    <connection server="localhost" dbase="pm_base" user="sf_sys_user" pass="kBsgRFcom?!@" />
+    <salt value="qazxsw12QW"/>
+</settings>

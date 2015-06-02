@@ -1,0 +1,4 @@
+ErrorDocument 400 /engine/error/400.php
+ErrorDocument 404 /engine/error/404.php
+ErrorDocument 403 /engine/error/403.php
+ErrorDocument 500 /engine/error/500.php
