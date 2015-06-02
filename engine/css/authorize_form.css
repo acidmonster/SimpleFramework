@@ -1,0 +1,173 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 04.10.2014, 1:33:03
+    Author     : Калашников А.П.
+*/
+
+html, body{
+    height: 100%;
+    width: 100%;
+    margin: 0px; 
+    padding: 0px;
+    font-size: 14px;
+    font-family: Tahoma;
+    color: #1a1f26;
+}
+
+h1{
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+.main-layer{
+    width: 650px;
+    height: 100%;
+    margin: 0px auto;
+    padding: 0px;
+    min-height: 600px;
+}
+
+.header-layer{
+    height: 40px;
+    background-color: #fcd356;
+    border: 1px solid #d0ae47;
+}
+
+.header-logo{
+    height: 40px;
+    width: 40px;
+    float: left;
+}
+
+.wrapper{
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+.header-label{
+    height: 40px;
+    width:230px;
+    background-image: url(../images/pm_header_label.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 40px;
+}
+
+.body-layer{
+    padding-bottom: 30px;
+    display: block;
+    height: auto;
+}
+
+.footer_layer{
+    height: 30px;
+    margin-top: -38px;
+    width: 650px;
+    border-top: 3px solid #fcc51d;
+    padding-top: 5px;
+    padding-left: 10px; 
+}
+
+.auth-layer{
+    height: 250px;
+    width: 180px;
+    padding: 10px;
+    float: left;
+}
+
+.element-label{
+    color: #d0ae47;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.element-input{
+    border: 1px solid #d0ae47;
+    background-color: #fcf5df;
+    height: 26px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.element-button{
+    height: 30px;
+    background: #fcd047; /* Для старых браузров */
+    background: linear-gradient(to top, #fcc51d, #fcd86b);
+    border: 1px solid #d0ae47;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.auth-input{
+    width: 168px;
+}
+
+.auth-label {
+    width: 180px;
+}
+
+.auth_submit{
+    width: 180px;
+}
+
+.link{ 
+    color: #d0ae47;
+    font-size: 14px;
+}
+
+.auth-link{
+    width: 180px;
+}
+
+.info-layer{
+    margin-left: 200px;
+    padding: 10px;
+}
+
+.info-group{
+    padding: 10px;
+}
+
+.info-image{
+    width: 70px;
+    height: 70px;
+    background-position: top;
+    background-repeat: no-repeat;
+    float: left;
+}
+
+.info-image-new-project{
+    background-image: url(../images/pm_new_project.png);
+}
+
+.info-image-team{
+    background-image: url(../images/pm_team.png);
+}
+
+.info-image-search{
+    background-image: url(../images/pm_search.png);
+}
+
+.info-image-earth{
+    background-image: url(../images/pm_earth.png);
+}
+
+.info-text{
+    margin-left: 70px;
+}
+
+.error_message {
+    padding: 10px;
+    background-color: #ffc3ae;
+    border: 1px solid #c64a50; 
+    color: #c64a50;
+}

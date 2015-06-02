@@ -1,0 +1,214 @@
+/*
+Copyright (c) Антон Калашников, 2015
+ 
+*/
+
+/* reset -------------------------------------------------------------------- */
+html, body, div, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, dfn, del, p, blockquote, fieldset, input, textarea, select, article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, button, menu {
+  margin: 0;
+  padding: 0;
+  font: normal 100% Arial, Tahoma;
+  color: #000;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section{
+    display:block;
+}
+
+html {
+    height: 100%;
+    background: #fff;
+}
+
+body {
+    min-height: 100%;
+    height: 100%;
+    min-width: 1200px;
+}
+
+.wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    font-size: 24px;
+    padding-bottom: 20px;
+}
+
+/* header-------------------------------------------------------------------- */
+.sh-header-area {
+    width: 100%;
+    height: 149px;
+    border-bottom: 1px solid #efefef;
+    margin-bottom: -150px;
+    position: relative;
+    z-index: 1000;
+}
+
+.sh-header-content {
+    width: 100%;
+    height: 100px;
+}
+
+/* menu --------------------------------------------------------------------- */
+.sh-menu-area {
+    width: 100%;
+    height: 49px;
+    border-top: 1px solid #efefef;
+}
+
+ul.sf-menu-group {
+    list-style-type: none;
+    font-size: 14px;
+    color: #000;
+}
+
+ul.sf-menu-group li {
+    float: left;
+    padding: 16px 20px 17px 20px;
+    color: #a9a69e;
+    cursor: pointer;
+}
+
+ul.sf-menu-group li a {
+  text-decoration: none;
+}
+
+.sf-menu-item {
+    color: #999;
+    border-bottom: 3px solid #fff;
+    padding: 0 5px 13px 5px;
+}
+
+.sf-menu-item:hover {
+    color: #24ab00;
+}
+
+.sf-menu-item-selected {
+    color: #000;
+    border-bottom: 3px solid #24ab00;
+    padding: 0 5px 13px 5px;
+}
+
+.sf-menu-item-secured {
+    color: #c64a50;
+    border-bottom: 3px solid #fff;
+    padding: 0 5px 13px 5px;
+}
+
+.sf-menu-item-secured-selected {
+    color: #000;
+    border-bottom: 3px solid #cd0a0a;
+    padding: 0 5px 13px 5px;
+}
+
+.sf-menu-item-secured:hover {
+    color: #cd0a0a;
+}
+
+/* submenu ------------------------------------------------------------------ */
+ul.sf-side-menu-group {
+    list-style-type: none;
+    font-size: 14px;
+    color: #000;
+}
+
+ul.sf-side-menu-group li {
+    float: left;
+    padding: 10px 20px 10px 0px;
+    color: #a9a69e;
+    cursor: pointer;
+}
+
+ul.sf-side-menu-group li a {
+  text-decoration: none;
+}
+
+.sf-side-menu-item {
+    color: #999;
+    border-left: 3px solid #fff;
+    padding: 5px 5px 5px 20px;
+}
+
+.sf-side-menu-item:hover {
+    color: #24ab00;
+}
+
+.sf-side-menu-item-selected {
+    color: #000;
+    border-left: 3px solid #24ab00;
+    padding: 5px 5px 5px 20px;
+}
+
+.sf-side-menu-item-secured {
+    color: #c64a50;
+    border-left: 3px solid #fff;
+    padding: 5px 5px 5px 20px;
+}
+
+.sf-side-menu-item-secured-selected {
+    color: #000;
+    border-left: 3px solid #cd0a0a;
+    padding: 5px 5px 5px 20px;
+}
+
+.sf-side-menu-item-secured:hover {
+    color: #cd0a0a;
+}
+
+/* content ------------------------------------------------------------------ */
+.sh-content-area {
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+    background-image: url(images/header-shadow.png);
+    background-repeat: repeat-x;
+    background-position-y: 150px;
+    padding: 150px 0 50px 0;
+}
+
+.sh-content-area:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+  font-size: 0;
+}
+
+.sh-page-title {
+    padding: 30px;
+    width: 940px
+}
+
+.sh-content {
+    width: 940px;
+    padding: 0 30px 0 30px;
+}
+
+.sh-vertical-menu{
+    display: block;
+    width: 160px;
+    padding: 10px 10px 10px 0px;
+    float: left;
+}
+
+.sh-content-side {
+    float: left;
+    padding: 10px 10px 10px 10px;
+    width: 720px;
+}
+
+/* footer ------------------------------------------------------------------- */
+.sh-footer-area {
+    width: 100%;
+    height: 49px;
+    border-top: 1px solid #efefef;
+    margin-top: -50px;
+}
