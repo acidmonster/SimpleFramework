@@ -171,7 +171,7 @@ $(document).ready(function () {
     
     /* Изменить элемент каталога----------------------------------------------*/
     $(".sf-catalog-item").click(function() {
-        catalog_id = $(".sf-catalog-item").children(".sf-catalog-item-id").val();
+        catalog_id = $(this).children(".sf-catalog-item-id").val();
         
         document.location.href = "?action=catalog&id=" + catalog_id;        
     });

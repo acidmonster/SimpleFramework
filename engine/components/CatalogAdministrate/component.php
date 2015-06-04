@@ -179,17 +179,11 @@ class CCatalogAdministrate {
 
             // Сформировать панель навигации
             $nav = '<div class="sf-catalog-navigation">'
-                        . '<div class="sf-button sf-catalog-navigator-bolder" id="SFCatalogNavRoot">'
-                        .   '<a href="#">&gt;</a>'
-                        . '</div>'
-                        . '<div class="sf-catalog-navigator-spacer">&gt;</div>'
-                        . '<div class="sf-button sf-catalog-navigator-bolder" id="SFCatalogNavGroup">'
-                        .   '<a href="#">'.$group->getName().'</a>'
-                        . '</div>'
-                        . '<div class="sf-catalog-navigator-spacer">&gt;</div>'
-                        . '<div class="sf-button sf-catalog-navigator-bolder" id="SFCatalogNavGroup">'
-                        .   '<a href="#">'.$catalog->getName().'</a>'
-                        . '</div>'
+                        . '<a href="#" id="SFCatalogNavRoot" class="sf-catalog-navigator-button">&gt;</a>'
+                        . '<div class="sf-catalog-navigator-spacer">\</div>'
+                        . '<a href="#" id="SFCatalogNavGroup" class="sf-catalog-navigator-button">'.$group->getName().'</a>'
+                        . '<div class="sf-catalog-navigator-spacer">\</div>'
+                        . '<a href="#" id="SFCatalogNavGroup" class="sf-catalog-navigator-button">'.$catalog->getName().'</a>'
                     . '</div>';
 
             $html .= $nav;

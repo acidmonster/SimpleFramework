@@ -153,7 +153,6 @@ class CCatalog {
         $catalog_list = new CBaseList();
         $con = new CConnection();
         $query = "select id, name, comment, state, group_id from " . self::СATALOG_TABLE_NAME . " where group_id='". $id ."'";
-
         if ($only_active) {
             $query .= " and state='E'";
         }
