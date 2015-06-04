@@ -100,7 +100,7 @@ class CCatalogGroup {
      * @param boolean $only_active
      * @return \СCatalogGroup
      */
-    public static function getGroupByID($id, $only_active = TRUE) {
+    public static function getObjectByID($id, $only_active = TRUE) {
         $con = new CConnection();
         $query = "select id, name, comment, state from " . self::GROUP_TABLE_NAME . " where id='" . $id . "'";
 
@@ -129,7 +129,7 @@ class CCatalogGroup {
      * @param string $only_active
      * @return \СCatalogGroup
      */
-    public static function getGroupByName($name, $only_active = TRUE) {
+    public static function getObjectByName($name, $only_active = TRUE) {
 
         $con = new CConnection();
         $query = "select id, name, comment, state from " . self::GROUP_TABLE_NAME . " where LTRIM(name)=LTRIM('" . $name . "')";
@@ -153,6 +153,4 @@ class CCatalogGroup {
 
         $result->close();
     }
-    
-
 }

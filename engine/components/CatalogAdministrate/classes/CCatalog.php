@@ -60,6 +60,7 @@ class CCatalog {
      * @method string getId(void)
      * @method string getName(void)
      * @method string getComment(void)
+     * @method string getGroup_id(void)
      * @method string getState(void)
      */
     public function __call($method_name, $arguments) {
@@ -78,12 +79,12 @@ class CCatalog {
     }
 
     /**
-     * Поулчает родительскую группу
+     * Получает родительскую группу
      * @return CCatalogGroup
      */
     public function getParent() {
         // Получить родительскую группу
-        $parent = CCatalogGroup::getGroupByID($this->group_id);
+        $parent = CCatalogGroup::getObjectByID($this->group_id);
 
         return $parent;
     }
@@ -111,7 +112,7 @@ class CCatalog {
 
             return $object;
         } else {
-            CLogger::writeLog("Группа с ИД '". $id . "' не найдена.");
+            CLogger::writeLog("CCatalog::getObjectByName(): Каталог с ИД '". $id . "' не найден.");
 
             return NULL;
         }
@@ -139,14 +140,41 @@ class CCatalog {
             $row = $result->fetch_object();
 
             // Получить родительскую группу
-            $parent = CCatalogGroup::getGroupByID($row->group_id);
-            $object = new CCatalog($row->id, $row->name, $row->state, $parent, $row->comment);
+            $object = new CCatalog($row->id, $row->name, $row->state, $row->group_id, $row->comment);
 
             return $object;
         } else {
-            CLogger::writeLog("Каталог с именем '". $name . "' не найден.");
+            CLogger::writeLog("CCatalog::getObjectByName(): Каталог с именем '". $name . "' не найден.");
             return NULL;
         }
+    }
+
+    public static function getCatalogsByGroupID($id, $only_active = TRUE) {
+        $catalog_list = new CBaseList();
+        $con = new CConnection();
+        $query = "select id, name, comment, state, group_id from " . self::СATALOG_TABLE_NAME . " where group_id='". $id ."'";
+
+        if ($only_active) {
+            $query .= " and state='E'";
+        }
+
+        $query .= " order by name";
+
+        if ($result = $con->query($query)) {
+            while ($row = $result->fetch_object()) {
+                 $catalog = new CCatalog($row->id, $row->name, $row->state, $row->group_id, $row->comment);
+                 $catalog_list->add($catalog);
+            }
+
+            $result->close();
+        } else {
+            CLogger::writeLog("CCatalog::getObjectByName(): Ошибка выполнения запроса: ".$con->getError());
+            die();
+        }
+
+        unset($con);
+
+        return $catalog_list;
     }
 
 }

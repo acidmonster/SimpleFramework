@@ -17,7 +17,7 @@ class CBaseList {
      */
     protected $count;
 
-    function __construct() {
+    public function __construct() {
         $this->count = 0;
     }
 
