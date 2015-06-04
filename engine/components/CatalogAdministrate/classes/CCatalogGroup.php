@@ -1,13 +1,13 @@
 <?php
 
-include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/engine/classes/CBaseList.php';
-include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/engine/classes/CConnection.php';
-include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/engine/classes/CLogger.php';
+include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . '/engine/classes/CBaseList.php';
+include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . '/engine/classes/CConnection.php';
+include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . '/engine/classes/CLogger.php';
 include_once 'CCatalog.php';
 
 class CCatalogGroup {
 
-    const GROUP_TABLE_NAME = "sf_catalogs_groups";
+    const GROUP_TABLE_NAME   = "sf_catalogs_groups";
     const СATALOG_TABLE_NAME = "sf_catalogs";
 
     /**
@@ -40,7 +40,6 @@ class CCatalogGroup {
      */
     protected $catalogs;
 
-
     /**
      *
      * @param string $id
@@ -49,27 +48,10 @@ class CCatalogGroup {
      * @param string $comment
      */
     public function __construct($id, $name, $state, $comment = "") {
-        $this->id = $id;
-        $this->name = $name;
-        $this->state = $state;
+        $this->id      = $id;
+        $this->name    = $name;
+        $this->state   = $state;
         $this->comment = $comment;
-
-//        // Получить каталоги группы
-//        $con = new CConnection();
-//        $query = "select id from " . self::СATALOG_TABLE_NAME . " where group_id='" . $id . "'";
-//        $result = $con->query($query);
-//        unset($con);
-//
-//        if ($result->num_rows > 0) {
-//            while($row = $result->fetch_object()) {
-//                $catalog = CCatalog::getObjectByID($row->id);
-//
-//                if (isset($catalog)) {
-//                    $this->catalogs->add($catalog);
-//                }
-//            }
-//
-//        }
     }
 
     /**
@@ -80,8 +62,8 @@ class CCatalogGroup {
      * @method string getState(void)
      */
     public function __call($method_name, $arguments) {
-        $args = preg_split('/(?<=\w)(?=[A-Z])/', $method_name);
-        $action = array_shift($args);
+        $args          = preg_split('/(?<=\w)(?=[A-Z])/', $method_name);
+        $action        = array_shift($args);
         $property_name = strtolower(implode('_', $args));
 
         switch ($action) {
@@ -101,7 +83,7 @@ class CCatalogGroup {
      * @return \СCatalogGroup
      */
     public static function getObjectByID($id, $only_active = TRUE) {
-        $con = new CConnection();
+        $con   = new CConnection();
         $query = "select id, name, comment, state from " . self::GROUP_TABLE_NAME . " where id='" . $id . "'";
 
         if ($only_active) {
@@ -112,12 +94,12 @@ class CCatalogGroup {
         unset($con);
 
         if ($result->num_rows > 0) {
-            $row = $result->fetch_object();
+            $row    = $result->fetch_object();
             $object = new CCatalogGroup($row->id, $row->name, $row->state, $row->comment);
 
             return $object;
         } else {
-            CLogger::writeLog("Группа с ИД '". $id . "' не найдена.");
+            CLogger::writeLog("Группа с ИД '" . $id . "' не найдена.");
 
             return NULL;
         }
@@ -131,7 +113,7 @@ class CCatalogGroup {
      */
     public static function getObjectByName($name, $only_active = TRUE) {
 
-        $con = new CConnection();
+        $con   = new CConnection();
         $query = "select id, name, comment, state from " . self::GROUP_TABLE_NAME . " where LTRIM(name)=LTRIM('" . $name . "')";
 
         if ($only_active) {
@@ -140,17 +122,63 @@ class CCatalogGroup {
 
         $query .= " limit 1";
         $result = $con->query($query);
-        unset($con);
 
         if ($result->num_rows > 0) {
-            $row = $result->fetch_object();
+            $row    = $result->fetch_object();
             $object = new CCatalogGroup($row->id, $row->name, $row->state, $row->comment);
             return $object;
         } else {
-            CLogger::writeLog("Группа с именем '". $name . "' не найдена.");
+            CLogger::writeLog("Группа с именем '" . $name . "' не найдена.");
             return NULL;
         }
 
         $result->close();
+        unset($con);
     }
+
+    public static function renderForm($object_id = null) {
+        $id      = "";
+        $name    = "";
+        $comment = "";
+
+        if (isset($object_id)) {
+            $group = self::getObjectByID($object_id);
+
+            if (isset($group)) {
+                $id      = $group->getId();
+                $name    = $group->getName();
+                $comment = $group->getComment();
+            }
+        }
+
+
+
+        // Карточка группы
+        $form = '<div class="sf-catalog-background"><div class="sf-catalog-background-grey"></div>
+                <form id="SFGroupForm" action="" method="post">
+                <div class="sh-catalog-frame">
+                    <div class="sh-catalog-form"><h2>Группа каталога</h2>
+                        <input type="hidden" id="SFCatalogAdminAction" value="AddGroup">
+                        <input type="hidden" id="SFGroupID" value="' . $id . '">
+                        <div class="sf-catalog-error-box"></div>
+                        <div class="sf-catalog-label">*Наименование</div>
+                         <div class="sf-input">
+                            <input type="text" alt="Наименование группы" name="SFGroupName" id="SFGroupName" maxlength="50" value="' . $name . '">
+                        </div>
+                        <div class="sf-catalog-label">Примечание</div>
+                        <div class="sf-input">
+                            <textarea alt="Примечание" name="SFGroupComment" id="SFGroupComment" maxlength="200">' . $comment . '</textarea>
+                        </div>
+                        <div class="sf-catalog-footer">
+                            <div class="sf-image-button" id="SFSaveGroup"><div class="sf-image-button-icon save-catalog-item"></div><a href="#">Сохранить</a></div>
+                            <div class="sf-image-button" id="SFCancelGroup"><div class="sf-image-button-icon cancel-catalog-item"></div><a href="#">Отмена</a></div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+                </div>';
+
+        return $form;
+    }
+
 }

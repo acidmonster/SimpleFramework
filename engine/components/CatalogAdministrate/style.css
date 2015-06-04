@@ -110,8 +110,7 @@ p {
 
 form {
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: 200px;
     left: 0;
     right: 0;
     margin: auto;
@@ -120,16 +119,7 @@ form {
     display: none;
     border: 1px solid #999;
     border-radius: 5px;
-}
-
-#SFGroupForm {
     width: 620px;
-    height: 330px;
-}
-
-#SFCatalogForm {
-    width: 620px;
-    height: 410px;
 }
 
 .sh-catalog-frame {

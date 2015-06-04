@@ -176,4 +176,6 @@ class CCatalog {
         return $catalog_list;
     }
 
+    
+
 }

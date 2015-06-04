@@ -146,10 +146,10 @@ class CCatalogAdministrate {
         </form>';
 
 
-        $html .='<div class="sf-catalog-background"><div class="sf-catalog-background-grey"></div>';
-        $html .= $group_form;
-        $html .= $catalog_form;
-        $html .= '</div>';
+//        $html .='<div class="sf-catalog-background"><div class="sf-catalog-background-grey"></div>';
+//        $html .= $group_form;
+//        $html .= $catalog_form;
+//        $html .= '</div>';
 
         return $html;
     }
@@ -217,6 +217,8 @@ class CCatalogAdministrate {
         if (Capp::checkAuthorize()) {
             $action = CApp::readURLProperty("action");
             $id = CApp::readURLProperty("id");
+
+            $this->html .= '<div id="SFCatalogFormLayer"></div>';
 
             if (!isset($action) || !isset($id)) {
                 $this->html .= $this->renderList();
