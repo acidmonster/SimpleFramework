@@ -9,6 +9,11 @@
 
 $menu = Array(
     Array(
+        'Группы каталогов',
+        '/settings/cataloggroups/',
+        TRUE
+    ),
+    Array(
         'Каталоги',
         '/settings/catalogs/',
         TRUE

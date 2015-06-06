@@ -72,8 +72,8 @@ validation.validDate = function(element_arr) {
 validation.showError = function(message) {
     if(message !== "") {
         // Получить контейнер ошибки
-        $(".sf-catalog-error-box").text(message);
-        $(".sf-catalog-error-box").show();
+        $(".sf-form-error-box").text(message);
+        $(".sf-form-error-box").show();
     }
 };
 
@@ -81,8 +81,8 @@ validation.showError = function(message) {
  * Метод скрывает сообщение об ошибке
  */
 validation.hideError = function() {
-    $(".sf-catalog-error-box").hide();
-    $(".sf-catalog-error-box").text("");
+    $(".sf-form-error-box").hide();
+    $(".sf-form-error-box").text("");
 };
 
 /**

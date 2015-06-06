@@ -3,12 +3,10 @@
 include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . '/engine/classes/CBaseList.php';
 include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . '/engine/classes/CConnection.php';
 include_once filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . '/engine/classes/CLogger.php';
-include_once 'CCatalog.php';
 
 class CCatalogGroup {
 
-    const GROUP_TABLE_NAME   = "sf_catalogs_groups";
-    const СATALOG_TABLE_NAME = "sf_catalogs";
+    const GROUP_TABLE_NAME = "sf_catalogs_groups";
 
     /**
      * ID группы
@@ -154,11 +152,10 @@ class CCatalogGroup {
 
 
         // Карточка группы
-        $form = '<div class="sf-catalog-background"><div class="sf-catalog-background-grey"></div>
+        $form = '<div class="sf-form-background"><div class="sf-form-background-grey"></div>
                 <form id="SFGroupForm" action="" method="post">
-                <div class="sh-catalog-frame">
-                    <div class="sh-catalog-form"><h2>Группа каталога</h2>
-                        <input type="hidden" id="SFCatalogAdminAction" value="AddGroup">
+                <div class="sh-form-frame">
+                    <div class="sh-form-panel"><h2>Группа каталога</h2>
                         <input type="hidden" id="SFGroupID" value="' . $id . '">
                         <div class="sf-catalog-error-box"></div>
                         <div class="sf-catalog-label">*Наименование</div>
@@ -170,8 +167,8 @@ class CCatalogGroup {
                             <textarea alt="Примечание" name="SFGroupComment" id="SFGroupComment" maxlength="200">' . $comment . '</textarea>
                         </div>
                         <div class="sf-catalog-footer">
-                            <div class="sf-image-button" id="SFSaveGroup"><div class="sf-image-button-icon save-catalog-item"></div><a href="#">Сохранить</a></div>
-                            <div class="sf-image-button" id="SFCancelGroup"><div class="sf-image-button-icon cancel-catalog-item"></div><a href="#">Отмена</a></div>
+                            <div class="sf-image-button" id="SFSave"><div class="sf-image-button-icon ' . CForms::getButtonStyle(CForms::BUTTON_OK) . '"></div><a href="#">Сохранить</a></div>
+                            <div class="sf-image-button" id="SFCancel"><div class="sf-image-button-icon ' . CForms::getButtonStyle(CForms::BUTTON_CANCEL) . '"></div><a href="#">Отмена</a></div>
                         </div>
                     </div>
                 </div>
@@ -179,6 +176,36 @@ class CCatalogGroup {
                 </div>';
 
         return $form;
+    }
+
+    public static function getGroupsList($only_active = TRUE) {
+        $groups_list = new CBaseList();
+
+        // Получить группы каталогов
+        $conn  = new CConnection();
+        $query = "select id from " . self::GROUP_TABLE_NAME;
+
+        if ($only_active) {
+            $query .= " where state='E'";
+        }
+
+        $query .= " order by name";
+
+        $res = $conn->query($query);
+
+        if ($res->num_rows > 0) {
+            while ($row = $res->fetch_object()) {
+                $group = self::getObjectByID($row->id);
+
+                if (isset($group)) {
+                    $groups_list->add($group);
+                }
+            }
+        }
+        $res->close();
+        unset($conn);
+
+        return $groups_list;
     }
 
 }

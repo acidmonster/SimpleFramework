@@ -12,7 +12,7 @@ $page_data = new CPageData();
 // Заголовок страницы
 $page_data->setTitle("Настройки");
 // Подготовить контент
-$page_data->setContent(CApp::loadComponent("CatalogAdmin"));
+$page_data->setContent(CApp::loadComponent("GroupAdmin"));
 
 
 CApp::loadTemplateByName("shop", $page_data);

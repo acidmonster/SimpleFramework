@@ -5,10 +5,10 @@ Copyright (c) Антон Калашников, 2015
 
 /* reset -------------------------------------------------------------------- */
 html, body, div, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, dfn, del, p, blockquote, fieldset, input, textarea, select, article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, button, menu {
-  margin: 0;
-  padding: 0;
-  font: normal 100% Arial, Tahoma;
-  color: #000;
+    margin: 0;
+    padding: 0;
+    font: normal 100% Arial, Tahoma;
+    color: #000;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section{
@@ -76,7 +76,7 @@ ul.sf-menu-group li {
 }
 
 ul.sf-menu-group li a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .sf-menu-item {
@@ -126,7 +126,7 @@ ul.sf-side-menu-group li {
 }
 
 ul.sf-side-menu-group li a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .sf-side-menu-item {
@@ -173,13 +173,13 @@ ul.sf-side-menu-group li a {
 }
 
 .sh-content-area:after {
-  content: ".";
-  display: block;
-  clear: both;
-  visibility: hidden;
-  line-height: 0;
-  height: 0;
-  font-size: 0;
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+    font-size: 0;
 }
 
 .sh-page-title {
@@ -194,7 +194,7 @@ ul.sf-side-menu-group li a {
 
 .sh-vertical-menu{
     display: block;
-    width: 160px;
+    width: 180px;
     padding: 10px 10px 10px 0px;
     float: left;
 }
@@ -202,7 +202,7 @@ ul.sf-side-menu-group li a {
 .sh-content-side {
     float: left;
     padding: 10px 10px 10px 10px;
-    width: 720px;
+    width: 700px;
 }
 
 /* footer ------------------------------------------------------------------- */
@@ -211,4 +211,230 @@ ul.sf-side-menu-group li a {
     height: 49px;
     border-top: 1px solid #efefef;
     margin-top: -50px;
+}
+
+/* forms ---------------------------------------------------------------------*/
+.sf-form-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    display: none;
+}
+
+.sf-form-background-grey {
+    background-color: #000;
+    opacity: 0.5;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+form {
+    position: absolute;
+    top: 200px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 2100;
+    background-color: #fff;
+    display: none;
+    border: 1px solid #999;
+    border-radius: 5px;
+    width: 620px;
+}
+
+.sh-form-frame {
+    display: block;
+}
+
+.sh-form-panel {
+    padding: 20px;
+}
+
+.sf-form-error-box {
+    border: 1px solid #cd0a0a;
+    border-radius: 5px;
+    background-color: #ec6166;
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    display: none;
+}
+
+.sf-form-message-panel {
+
+}
+
+.sf-form-message-panel:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+    font-size: 0;
+}
+
+.sf-catalog-label {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 8px 0 8px 0;
+}
+
+.sf-input-frame {
+    width: 100%;
+    padding: 10px;
+}
+
+.sf-input {
+    padding: 7px;
+    border: 1px solid #999;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #eee;    
+}
+
+.sf-select {
+    padding: 7px 0 7px 0;
+}
+
+select {
+    padding: 6px;
+    border-radius: 5px;
+    outline: none;
+    background-color: #eee;
+    color: #5a5a5a;
+    font-size: 15px;
+}
+
+option {
+    height: 40px;
+    background-color: #eee;
+    color: #5a5a5a;
+    font-size: 15px;
+}
+
+input[type="text"] {
+    margin: 0px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: #eee;
+    color: #5a5a5a;
+    font-size: 15px;
+}
+textarea {
+    min-height: 60px;
+    margin: 0px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: #eee;
+    color: #5a5a5a;
+    font-size: 15px;
+}
+
+/* Buttons ------------------------------------------------------------ */
+.sf-button {
+    height: 33px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    float: left;
+    margin: 0 8px 0 8px;
+    padding: 5px 10px 5px 10px;
+    font-size: 15px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.sf-button:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.sf-button a {
+    text-decoration: none;
+    color: #000;
+    float: left;
+    padding: 8px 0 0 0;
+    min-width: 10px;
+}
+
+.sf-image-button {
+    height: 33px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    float: left;
+    margin: 0 20px 0 0;
+    padding: 5px 10px 5px 10px;
+    font-size: 15px;
+    background-repeat: no-repeat;
+    background-position-y: 10px;
+    background-position-x: 13px;
+    background-color: #fff;
+}
+
+.sf-image-button-icon {
+    width: 32px;
+    height: 32px;
+    float: left;
+}
+
+.sf-image-button a {
+    text-decoration: none;
+    color: #000;
+    float: left;
+    padding: 8px 0 0 8px;
+}
+
+.sf-image-button:hover { 
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.sf-icon-ok {
+    background-image: url(/engine/images/sf-icon-ok.png);
+}
+
+.sf-icon-cancel {
+    background-image: url(/engine/images/sf-icon-cancel.png);
+}
+
+.sf-icon-add {
+    background-image: url(/engine/images/sf-icon-add.png);
+}
+
+.sf-icon-delete {
+    background-image: url(/engine/images/sf-icon-del.png);
+}
+
+.sf-icon-confirm {
+    background-image: url(/engine/images/sf-icon-confirm.png);
+}
+
+.sf-icon-warning {
+    background-image: url(/engine/images/sf-icon-warning.png);
+}
+
+.sf-icon-error {
+    background-image: url(/engine/images/sf-icon-error.png);
+}
+
+.sf-icon-info {
+    background-image: url(/engine/images/sf-icon-info.png);
+}
+
+.sf-msbox-icon {
+    float: left;
+    width: 48px;
+    height: 48px;
+    padding: 0 20px 0 0;
+    background-repeat: no-repeat;
 }

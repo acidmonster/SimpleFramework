@@ -97,8 +97,6 @@ class CConnection {
          *  Check query text
          */
         if (isset($query_text)) {
-
-            CLogger::writeLog('CConnection->query(): '. $query_text);
             // Execute query
             $this->mysqli->query("SET NAMES 'utf8'");
             $this->mysqli->query("SET CHARACTER SET 'utf8'");
@@ -112,7 +110,7 @@ class CConnection {
             }
 
         } else {
-            CLogger::writeLog('CConnection->query(): Query text must be define.');
+            CLogger::writeLog('CConnection->query(): Должен быть задан текст запроса.');
             return NULL;
         }
     }
