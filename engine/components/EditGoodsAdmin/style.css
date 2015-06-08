@@ -1,0 +1,51 @@
+p {
+    padding-bottom: 5px;
+}
+
+.sf-goods-images-area {
+    width: 302px;
+    height: 380px;
+    float: left;
+}
+
+.sf-goods-preview {
+    width: 300px;
+    height: 300px;
+    border: 1px solid #999;
+}
+.sf-goods-small-previews-area {
+    width: 300px;
+    height: 70px;
+    border: 1px solid #999;
+    margin: 6px 0 0 0;
+}
+
+.sf-goods-fields-area {
+    float: left;
+    margin: 0 0 0 20px;
+    width: 320px;
+}
+
+.sh-form-panel:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+    font-size: 0;
+}
+
+.sf-catalog-footer {
+    padding: 20px;
+}
+
+.sf-catalog-footer:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+    font-size: 0;
+}

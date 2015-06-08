@@ -104,7 +104,7 @@ class CForms {
         $buttons_html .= '</div>';
 
         $form = '<div class="sf-form-background"><div class="sf-form-background-grey"></div>
-                <form id="' . $form_id . '" action="" method="post" style="width: '.$width.'px;height:'.$height.'px;">
+                <form id="' . $form_id . '" action="" class="modal-form" method="post" style="width: '.$width.'px;height:'.$height.'px;">
                 <div class="sh-form-frame">
                     <div class="sh-form-panel"><h2>' . $title . '</h2>
                         <div class="sf-form-message-panel">' . $icon . '<div style="float:left; padding: 5px 0 0 0">' . $message . '</div></div>

@@ -153,7 +153,7 @@ class CCatalogGroup {
 
         // Карточка группы
         $form = '<div class="sf-form-background"><div class="sf-form-background-grey"></div>
-                <form id="SFGroupForm" action="" method="post">
+                <form id="SFGroupForm" action="" class="modal-form" method="post">
                 <div class="sh-form-frame">
                     <div class="sh-form-panel"><h2>Группа каталога</h2>
                         <input type="hidden" id="SFGroupID" value="' . $id . '">

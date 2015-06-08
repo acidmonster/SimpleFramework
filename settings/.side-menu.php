@@ -19,6 +19,11 @@ $menu = Array(
         TRUE
     ),
     Array(
+        'Товары',
+        '/settings/goods/',
+        TRUE
+    ),
+    Array(
         'Пользователи',
         '/settings/users/',
         TRUE

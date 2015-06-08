@@ -67,7 +67,6 @@ class CConnection {
                         $this->has_error = TRUE;
                         CLogger::writeLog('CConnection->openConnection(): Failed to setup connection for user "' . $this->user . '" ' . mysqli_connect_error());
                     } else {
-                        CLogger::writeLog('CConnection->openConnection(): Connected');
                         $this->mysqli = $mysqli_conn;
                         $this->opened = TRUE;
                     }
@@ -82,7 +81,6 @@ class CConnection {
     protected function closeConention() {
         if ($this->opened) {
             $this->mysqli->close();
-            CLogger::writeLog('CConnection->openConnection(): Disconnected');
         }
     }
 
@@ -103,7 +101,6 @@ class CConnection {
             $this->mysqli->query("SET SESSION collation_connection = 'utf8_general_ci'");
 
             if ($mysqli_result = $this->mysqli->query($query_text)) {
-                CLogger::writeLog('CConnection->query(): Выполнен успешно.');
                 return $mysqli_result;
             } else {
                 CLogger::writeLog('CConnection->query(): Ошибка при выполнении запроса '.$this->mysqli->error);
